@@ -17,6 +17,7 @@ public class Input {
     private Node root;
     private List<Xml> xmls;
     private Queue<String> info;
+    private static int idx;
 
     public List<Xml> getXmls() {
         return xmls;
@@ -36,6 +37,10 @@ public class Input {
             else setInfo(line);
         }
 
+        idx = 0;
+        root = new Node("XML", idx++);
+        root.setClosed(true);
+
         if(info != null) setNode(root);
 
         return root;
@@ -47,17 +52,14 @@ public class Input {
         while(!info.isEmpty()) {
             String element = info.poll();
 
-            if(element.charAt(0) == '/') return;
+            if(element.charAt(0) == '/') {
+                node.setClosed(true);
+                return;
+            }
 
-            if(node == null){
-                root = new Node(element);
-                setNode(root);
-            }
-            else {
-                Node child = new Node(element);
-                node.add(child);
-                setNode(child);
-            }
+            Node child = new Node(element, idx++);
+            node.add(child);
+            setNode(child);
         }
     }
 
