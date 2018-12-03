@@ -27,25 +27,26 @@ public class XmlCheckProcess {
             message.append("Line " + node.getIdx() + " : 닫히지않음").append("\n");
         }
 
-
-        message.append(node.getUserObject().toString()).append("\n");
         if (node.getXml() != null) {
             String temp = node.getXml().getCommand();
-            message.append(temp).append("\n");
 
             if (",".equals(temp)) {
                 int errorLine = seq(node);
-                message.append(errorLine).append("\n");
                 if(errorLine != 0) {
                     error = true;
-                    message.append("Line " + errorLine + " : 원소 오류").append("\n");
+                    message.append("Line " + errorLine + " : 원소 오류(SEQ)").append("\n");
                 }
             } else if ("|".equals(temp)) {
                 int errorLine = or(node);
-                message.append(errorLine).append("\n");
                 if(errorLine != 0) {
                     error = true;
-                    message.append("Line " + errorLine + " : 원소 오류").append("\n");
+                    message.append("Line " + errorLine + " : 원소 오류(OR)").append("\n");
+                }
+            } else if ("&".equals(temp)) {
+                int errorLine = and(node);
+                if(errorLine != 0) {
+                    error = true;
+                    message.append("Line " + errorLine + " : 원소 오류(AND)").append("\n");
                 }
             }
         }
@@ -85,8 +86,24 @@ public class XmlCheckProcess {
         return node.getIdx();
     }
 
-    private void and(final Node node) {
+    private int and(final Node node) {
+        List<String> targets = node.getXml().getTargets();
+        List<Node> children = node.getChildren();
+        boolean[] checked = new boolean[targets.size()];
 
+        if (children == null || targets.size() != children.size()) return node.getIdx();
+
+        for (String target : targets) {
+            for(int i=0; i<targets.size(); i++) {
+                if(!checked[i] && target.equals(children.get(i).getUserObject().toString())) checked[i] = true;
+            }
+        }
+
+        for (int i = 0; i < targets.size(); i++) {
+            if(!checked[i]) return node.getIdx();
+        }
+
+        return 0;
     }
 
     public boolean isError() {

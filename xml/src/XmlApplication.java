@@ -24,7 +24,6 @@ public class XmlApplication extends JFrame implements TreeSelectionListener, Act
     JTree tree;
     JLabel label;
     JPanel panel;
-    //        JButton check;
     JTextArea textArea;
 
     public XmlApplication() throws IOException {
@@ -67,13 +66,9 @@ public class XmlApplication extends JFrame implements TreeSelectionListener, Act
             container.add(new JTextField("ERROR"), BorderLayout.CENTER);
         }
 
-        textArea = new JTextArea(xmlCheckProcess.getErrorMessage(), 5, 44);
+        textArea = new JTextArea(xmlCheckProcess.getErrorMessage(), 5, 42);
         textArea.setEditable(false);
         panel.add(new JScrollPane(textArea), BorderLayout.SOUTH);
-
-//            check = new JButton("검사");
-//            check.addActionListener(this);
-//            panel.add(check, BorderLayout.EAST);
 
         //컨테이너 설정
         container.add(panel, BorderLayout.NORTH);
@@ -85,7 +80,6 @@ public class XmlApplication extends JFrame implements TreeSelectionListener, Act
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
 
     }
 
