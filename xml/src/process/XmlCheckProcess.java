@@ -13,10 +13,10 @@ import java.util.List;
 public class XmlCheckProcess {
 
     boolean error;
-    StringBuilder message;
+    StringBuilder log;
 
     public XmlCheckProcess() {
-        message = new StringBuilder();
+        log = new StringBuilder();
         error = false;
     }
 
@@ -24,7 +24,7 @@ public class XmlCheckProcess {
 
         if(!node.isClosed()) {
             error = true;
-            message.append("Line " + node.getIdx() + " : 닫히지않음").append("\n");
+            log.append("Line " + node.getIdx() + " : 닫히지않음").append("\n");
         }
 
         if (node.getXml() != null) {
@@ -34,19 +34,19 @@ public class XmlCheckProcess {
                 int errorLine = seq(node);
                 if(errorLine != 0) {
                     error = true;
-                    message.append("Line " + errorLine + " : 원소 오류(SEQ)").append("\n");
+                    log.append("Line " + errorLine + " : 원소 오류(SEQ)").append("\n");
                 }
             } else if ("|".equals(temp)) {
                 int errorLine = or(node);
                 if(errorLine != 0) {
                     error = true;
-                    message.append("Line " + errorLine + " : 원소 오류(OR)").append("\n");
+                    log.append("Line " + errorLine + " : 원소 오류(OR)").append("\n");
                 }
             } else if ("&".equals(temp)) {
                 int errorLine = and(node);
                 if(errorLine != 0) {
                     error = true;
-                    message.append("Line " + errorLine + " : 원소 오류(AND)").append("\n");
+                    log.append("Line " + errorLine + " : 원소 오류(AND)").append("\n");
                 }
             }
         }
@@ -115,6 +115,6 @@ public class XmlCheckProcess {
     }
 
     public String getErrorMessage() {
-        return this.message.toString();
+        return this.log.toString();
     }
 }
