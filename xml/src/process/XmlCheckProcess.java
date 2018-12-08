@@ -48,6 +48,24 @@ public class XmlCheckProcess {
                     error = true;
                     log.append("Line " + errorLine + " : 원소 오류(AND)").append("\n");
                 }
+            } else if ("?".equals(temp)) {
+                int errorLine = quest(node);
+                if(errorLine != 0) {
+                    error = true;
+                    log.append("Line " + errorLine + " : 원소 오류(QUEST)").append("\n");
+                }
+            } else if ("*".equals(temp)) {
+                int errorLine = star(node);
+                if(errorLine != 0) {
+                    error = true;
+                    log.append("Line " + errorLine + " : 원소 오류(STAR)").append("\n");
+                }
+            } else if ("+".equals(temp)) {
+                int errorLine = plus(node);
+                if(errorLine != 0) {
+                    error = true;
+                    log.append("Line " + errorLine + " : 원소 오류(PLUS)").append("\n");
+                }
             }
         }
 
@@ -101,6 +119,51 @@ public class XmlCheckProcess {
 
         for (int i = 0; i < targets.size(); i++) {
             if(!checked[i]) return node.getIdx();
+        }
+
+        return 0;
+    }
+
+    private int quest(final Node node) {
+        List<String> targets = node.getXml().getTargets();
+        List<Node> children = node.getChildren();
+
+        if(children == null) return 0;
+
+        for (String target : targets) {
+            for(Node child : children) {
+                if(!target.equals(child.getUserObject().toString())) return node.getIdx();
+            }
+        }
+
+        return 0;
+    }
+
+    private int star(final Node node) {
+        List<String> targets = node.getXml().getTargets();
+        List<Node> children = node.getChildren();
+
+        if(children == null) return 0;
+
+        for (String target : targets) {
+            for(Node child : children) {
+                if(!target.equals(child.getUserObject().toString())) return node.getIdx();
+            }
+        }
+
+        return 0;
+    }
+
+    private int plus(final Node node) {
+        List<String> targets = node.getXml().getTargets();
+        List<Node> children = node.getChildren();
+
+        if(children == null) return node.getIdx();
+
+        for (String target : targets) {
+            for(Node child : children) {
+                if(!target.equals(child.getUserObject().toString())) return node.getIdx();
+            }
         }
 
         return 0;
