@@ -22,6 +22,12 @@
 | NodeProcess     | Node root;<br />List<String> elements;<br />List<Xml> xmls; | void process();                                  | -        | 입력받은 구조화된 노드와 XML문법을 받아 각각의 노드에 해당하는 XML문법을 삽입 |
 | XmlCheckProcess | boolean error;<br />StringBuilder log;                      | getter<br />setter<br />void process(Node node); | -        | 실제 XML 검사 구현체, 구조화된 노드를 통해 각각의 노드들을 검사하고 오류 내용을 저장 |
 
+#### 4. 그래픽
+
+| 클래스         | 멤버변수                                                     | 멤버함수 | 상속관계                                               | 기능      |
+| -------------- | ------------------------------------------------------------ | -------- | ------------------------------------------------------ | --------- |
+| XmlApplication | JTree tree;<br />JLabel laber;<br />JPanel panel;<br />JTextArea textArea; |          | JFrame<br />TreeSelectionListrener<br />ActionListener | Swing GUI |
+
 
 
 ## 조건식
