@@ -26,7 +26,7 @@
 
 | 클래스         | 멤버변수                                                     | 멤버함수 | 상속관계                                               | 기능      |
 | -------------- | ------------------------------------------------------------ | -------- | ------------------------------------------------------ | --------- |
-| XmlApplication | JTree tree;<br />JLabel laber;<br />JPanel panel;<br />JTextArea textArea; |          | JFrame<br />TreeSelectionListrener<br />ActionListener | Swing GUI |
+| XmlApplication | JTree tree;<br />JLabel laber;<br />JPanel panel;<br />JTextArea logArea; |          | JFrame<br />TreeSelectionListrener<br />ActionListener | Swing GUI |
 
 
 
